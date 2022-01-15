@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/janekotovich/mapty/issues"
   },
-  "homepage": "https://github.com/janekotovich/mapty#readme"
+  "homepage": "https://github.com/janekotovich/mapty#readme",
+  "dependencies": {
+    "leaflet": "^1.7.1"
+  }
 }
