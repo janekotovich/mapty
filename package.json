@@ -1,0 +1,19 @@
+{
+  "name": "mapty",
+  "version": "1.0.0",
+  "description": "Geolocation app",
+  "main": "script.js",
+  "scripts": {
+    "test": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janekotovich/mapty.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/janekotovich/mapty/issues"
+  },
+  "homepage": "https://github.com/janekotovich/mapty#readme"
+}
