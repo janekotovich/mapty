@@ -27,7 +27,19 @@ navigator.geolocation?.getCurrentPosition(
 
     map.on('click', function (mapEvent) {
       const { lat, lng } = mapEvent.latlng;
-      L.marker([lat, lng]).addTo(map).bindPopup('Workout').openPopup();
+      L.marker([lat, lng], { riseOnHover: true })
+        .addTo(map)
+        .bindPopup(
+          L.popup({
+            maxWidth: 250,
+            minWidth: 100,
+            autoClose: false,
+            closeOnClick: false,
+            className: 'running-popup',
+          })
+        )
+        .setPopupContent('Workout')
+        .openPopup();
     });
   },
   function () {
