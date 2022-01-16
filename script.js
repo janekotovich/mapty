@@ -38,7 +38,8 @@ navigator.geolocation?.getCurrentPosition(
     alert('Could not get your position');
   }
 );
-form.addEventListener('submit', function () {
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
   //Display marker
   const { lat, lng } = mapEvent.latlng;
   L.marker([lat, lng], { riseOnHover: true })
