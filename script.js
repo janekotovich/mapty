@@ -13,8 +13,14 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 let map, mapEvent;
 
-navigator.geolocation?.getCurrentPosition(
-  function (position) {
+class App {
+  constructor() {}
+  _getPosition() {
+    navigator.geolocation?.getCurrentPosition(this._loadMap, function () {
+      alert('Could not get your position');
+    });
+  }
+  _loadMap(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
     console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
@@ -33,11 +39,14 @@ navigator.geolocation?.getCurrentPosition(
       form.classList.remove('hidden');
       inputDistance.focus();
     });
-  },
-  function () {
-    alert('Could not get your position');
   }
-);
+  _showForm() {}
+  _toggleElevationField() {}
+  _newWorkout() {}
+}
+
+const app = new App();
+
 form.addEventListener('submit', function (e) {
   e.preventDefault();
 
