@@ -40,7 +40,15 @@ navigator.geolocation?.getCurrentPosition(
 );
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-  //Display marker
+
+  // Clear input fields
+  inputCadence.value =
+    inputDistance.value =
+    inputDuration.value =
+    inputElevation.value =
+      '';
+
+  // Display marker
   const { lat, lng } = mapEvent.latlng;
   L.marker([lat, lng], { riseOnHover: true })
     .addTo(map)
