@@ -93,7 +93,33 @@ class App {
     inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
   }
   _newWorkout(e) {
+    const validInputs = (...inputs) =>
+      inputs.every(inp => Number.isFinite(inp));
+    const allPostive = (...inputs) => inputs.every(inp => inp > 0);
     e.preventDefault();
+
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
+
+    if (type === 'running') {
+      const cadance = +inputCadence.value;
+
+      if (
+        !validInputs(distance, duration, cadance) ||
+        !allPostive(distance, duration, cadance)
+      )
+        return alert('Inputs have to be positive numbers');
+    }
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+
+      if (
+        !validInputs(distance, duration, elevation) ||
+        !allPostive(distance, duration)
+      )
+        return alert('Inputs have to be positive numbers');
+    }
 
     // Clear input fields
     inputCadence.value =
