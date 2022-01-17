@@ -22,6 +22,7 @@ class Workout {
 }
 
 class Running extends Workout {
+  type = 'running';
   constructor(coords, distance, duration, cadence) {
     super(coords, distance, duration);
     this.cadence = cadence;
@@ -33,6 +34,7 @@ class Running extends Workout {
   }
 }
 class Cycling extends Workout {
+  type = 'cycling';
   constructor(coords, distance, duration, elevationGain) {
     super(coords, distance, duration);
     this.elevationGain = elevationGain;
@@ -66,7 +68,6 @@ class App {
   _loadMap(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
-    console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
 
     const coords = [latitude, longitude];
     this._map = L.map('map').setView(coords, 13);
@@ -124,16 +125,18 @@ class App {
     }
     this._workouts.push(workout);
 
+    // Display marker
+    this.renderWorkoutMarker(workout);
     // Clear input fields
     inputCadence.value =
       inputDistance.value =
       inputDuration.value =
       inputElevation.value =
         '';
+  }
 
-    // Display marker
-    const { lat, lng } = this._mapEvent.latlng;
-    L.marker([lat, lng], { riseOnHover: true })
+  renderWorkoutMarker(workout) {
+    L.marker(workout.coords, { riseOnHover: true })
       .addTo(this._map)
       .bindPopup(
         L.popup({
@@ -141,10 +144,10 @@ class App {
           minWidth: 100,
           autoClose: false,
           closeOnClick: false,
-          className: 'running-popup',
+          className: `${workout.type}-popup`,
         })
       )
-      .setPopupContent('Workout')
+      .setPopupContent(workout.distance.toString())
       .openPopup();
   }
 }
