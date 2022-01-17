@@ -45,15 +45,11 @@ class Cycling extends Workout {
   }
 }
 
-const run = new Running([39, -12], 5.2, 24, 178);
-const cycle = new Cycling([39, -12], 27, 95, 523);
-console.log(run);
-console.log(cycle);
-
 //APLLICATION ARCHITECTURE
 class App {
   _map;
   _mapEvent;
+  _workouts = [];
   constructor() {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
@@ -101,6 +97,8 @@ class App {
     const type = inputType.value;
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
+    const { lat, lng } = this._mapEvent.latlng;
+    let workout;
 
     if (type === 'running') {
       const cadance = +inputCadence.value;
@@ -110,6 +108,8 @@ class App {
         !allPostive(distance, duration, cadance)
       )
         return alert('Inputs have to be positive numbers');
+
+      workout = new Running([lat, lng], distance, duration, cadance);
     }
     if (type === 'cycling') {
       const elevation = +inputElevation.value;
@@ -119,7 +119,10 @@ class App {
         !allPostive(distance, duration)
       )
         return alert('Inputs have to be positive numbers');
+
+      workout = new Cycling([lat, lng], distance, duration, elevation);
     }
+    this._workouts.push(workout);
 
     // Clear input fields
     inputCadence.value =
