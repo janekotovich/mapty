@@ -11,6 +11,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class Workout {
   date = new Date();
   id = Date.now().toString().slice(-10);
+  clicks = 0;
   constructor(coords, distance, duration) {
     this.coords = coords; // array [lat, lng]
     this.distance = distance; //in km
@@ -22,6 +23,9 @@ class Workout {
     this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
     } ${this.date.getDate()}`;
+  }
+  click() {
+    this.click++;
   }
 }
 
@@ -218,19 +222,20 @@ class App {
   }
   _moveToPopup(e) {
     const workoutEl = e.target.closest('.workout');
-    console.log(e);
-    console.log(workoutEl);
+
     if (!workoutEl) return;
     const workout = this._workouts.find(
       work => work.id === workoutEl.dataset.id
     );
-    console.log(workout);
+
     this._map.setView(workout.coords, this._mapZoomLevel, {
       animate: true,
       pan: {
         duration: 1,
       },
     });
+
+    workout.click();
   }
 }
 
