@@ -97,6 +97,11 @@ class App {
 
     // Handling clicks on map
     this._map.on('click', this._showForm.bind(this));
+
+    // Render existing workouts
+    this._workouts.forEach(workout => {
+      this._renderWorkoutMarker(workout);
+    });
   }
   _showForm(mapE) {
     this._mapEvent = mapE;
@@ -255,7 +260,9 @@ class App {
     if (!parsedData) return;
 
     this._workouts = parsedData;
-    this._workouts.forEach(workout => this._renderWorkout(workout));
+    this._workouts.forEach(workout => {
+      this._renderWorkout(workout);
+    });
   }
 }
 
